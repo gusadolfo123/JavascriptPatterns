@@ -27,6 +27,52 @@ function App() {
 
 	users.removeUser(usr);
 
+	// iteradores
+	let iterator = {
+		currentValue: 1,
+		next() {
+			let result = { value: null, done: false };
+
+			if (this.currentValue > 0 && this.currentValue <= 5) {
+				result = { value: this.currentValue, done: false };
+				this.currentValue += 1;
+			} else {
+				result = { done: true };
+			}
+			return result;
+		},
+	};
+
+	let item = iterator.next();
+
+	while (!item.done) {
+		console.log(item.value);
+		item = iterator.next();
+	}
+
+	// generadores
+	function* counter() {
+		for (let index = 1; index <= 5; index++) {
+			yield index;
+		}
+	}
+
+	let generator = counter();
+	console.log(generator.next());
+	console.log(generator.next());
+	console.log(generator.next());
+	console.log(generator.next());
+	console.log(generator.next());
+	console.log(generator.next());
+
+	function* retornador() {
+		return 3;
+	}
+
+	let g = retornador();
+
+	console.log(g.next());
+
 	return (
 		<div className="App">
 			<FirebaseAppProvider firebaseConfig={firebaseConfig}>
